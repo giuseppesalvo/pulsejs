@@ -1,0 +1,31 @@
+{
+  "name": "pulsejs",
+  "version": "0.0.33",
+  "description": "pulsejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giuseppesalvo/pulsejs.git"
+  },
+  "keywords": [
+    "pulsejs"
+  ],
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giuseppesalvo/pulse/issues"
+  },
+  "homepage": "https://github.com/giuseppesalvo/pulse#readme",
+  "dependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "babelify": "^7.3.0"
+  }
+}
