@@ -21,9 +21,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/giuseppesalvo/pulse/issues"
+    "url": "https://github.com/giuseppesalvo/pulsejs/issues"
   },
-  "homepage": "https://github.com/giuseppesalvo/pulse#readme",
+  "homepage": "https://github.com/giuseppesalvo/pulsejs#readme",
   "dependencies": {
     "babel-preset-es2015": "^6.9.0",
     "babelify": "^7.3.0"
