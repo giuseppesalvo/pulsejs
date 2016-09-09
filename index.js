@@ -1,10 +1,11 @@
 'use strict';
 
-const LibraryName = "pulse"
+const LibraryName = "pulsar"
 
 class Component {
 
-	constructor(element, options = {}) {
+	constructor(element, options = {}, selector) {
+		this._selector = selector
 		this._libraryname = LibraryName
 		this._cachedElements = {};
 		this.element = element;
@@ -32,11 +33,15 @@ class Component {
 		if ( !temp ) return null;
 
 		for ( let k in model ) {
-			temp = temp.replace(new RegExp(`{{${k}}}`, 'g'), model[k] )
+			temp = temp.replace(new RegExp(`{{\\s*${k}\\s*}}`, 'g'), model[k] )
 		}
 
 		if ( !stringify ) {
-			return new DOMParser().parseFromString(temp, "text/html").body
+			const nodes = new DOMParser().parseFromString(temp, "text/html").body.childNodes
+			if ( nodes.length > 1 )
+				throw new Error(`${LibraryName}.${this._selector}.template.${name} -> template content must be wrapped in a div`)
+			else
+				return nodes.length === 1 ? nodes[0] : null
 		} else 
 			return temp
 	}
@@ -169,7 +174,7 @@ class Component {
 		this._addBindings();
 		this._rootEl();
 		this._getTemplates();
-		this.needsUpdate = false;
+		this.needsUpdate = false;		
 		return true;
 	}
 }
@@ -182,19 +187,19 @@ function clone (obj) {
 	return t;
 }
 
-function extend(ChildClass, ParentClass, dependency, proto, options ) {
-	ChildClass.prototype = new ParentClass(dependency, options);
+function extend(ChildClass, ParentClass, dependency, proto, options, selector ) {
+	ChildClass.prototype = new ParentClass(dependency, options, selector);
 	Object.assign( ChildClass.prototype, proto );
 	ChildClass.prototype.constructor = ChildClass;
 }
 
-function checkReservedProperties(object) {
+function checkReservedProperties(object, selector) {
 	const reserved = [ "update", "container", "root", "el", "new", "template", "mount", "options" ]
-	for ( let key in object ) {
-		if ( obj.hasOwnProperty(key) ) {
-			throw new Error(`${LibraryName}: ${key} property is reserved`)
+	reserved.forEach( key => {
+		if ( object.hasOwnProperty(key) ) {
+			throw new Error(`${LibraryName}.${selector} -> '${key}' property is reserved`)
 		}	
-	}
+	})
 }
 
 export default function Mount ( selector, Tag, options = {} ) {
@@ -205,10 +210,10 @@ export default function Mount ( selector, Tag, options = {} ) {
 		const result = []
 			, old 	 = clone(Tag.prototype)
 
-		checkReservedProperties( old )
+		checkReservedProperties( old, selector )
 
 		for ( let i = 0; i < element.length ; i++ ) {
-			extend( Tag, Component, element[i], old, options )
+			extend( Tag, Component, element[i], old, options, selector )
 			const instance = new Tag(options)
 			instance.update();
 			result.push(instance);
@@ -221,5 +226,4 @@ export default function Mount ( selector, Tag, options = {} ) {
 		console.warn("Elements with specified selector: ${selector} not found")
 		return null;
 	}
-
 }
