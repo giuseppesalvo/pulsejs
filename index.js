@@ -1,22 +1,22 @@
 'use strict';
 
-const LibraryName = "pulsar"
+const LibraryName = "pulse"
 
 class Component {
 
 	constructor(element, options = {}, selector) {
-		this._selector = selector
-		this._libraryname = LibraryName
-		this._cachedElements = {};
-		this.element = element;
+		this._selector 		 = selector
+		this._libraryname 	 = LibraryName
+		this._cachedElements = {}
+		this.element 		 = element
 		this.nestedAttribute = LibraryName
-		this._options = options
+		this._options 		 = options
 		this._addOptions()
-		this._rootEl();
+		this._rootEl()
 	}
 
 	get options() {
-		return this._options;
+		return this._options
 	}
 
 	mount() {
@@ -24,13 +24,13 @@ class Component {
 	}
 
 	get container() {
-		return this.element;
+		return this.element
 	}
 
 	template( name, model, stringify ) {
-		let temp = this.templates[name];
+		let temp = this.templates[name]
 		
-		if ( !temp ) return null;
+		if ( !temp ) return null
 
 		for ( let k in model ) {
 			temp = temp.replace(new RegExp(`{{\\s*${k}\\s*}}`, 'g'), model[k] )
@@ -47,7 +47,7 @@ class Component {
 	}
 
 	get templates() {
-		return this._getTemplates();
+		return this._getTemplates()
 	}
 
 	_getTemplates() {
@@ -56,16 +56,18 @@ class Component {
 			const templates = this.element.querySelectorAll('template');
 			let result = this.templatesObject || {}
 
-			Array.from(templates).forEach( v => {
-
+			const cleanTemplate = (v) => {
 				// Check if it's an element of other components
 				if ( this._isNested(v) ) return;				
 
-				result[v.getAttribute('name')] = v.innerHTML.replace(/[\t\n]/g, '');
-				v.parentNode.removeChild(v);
-			});
+				result[v.getAttribute('name')] = v.innerHTML.replace(/[\t\n]/g, '')
+				v.parentNode.removeChild(v)
+			}
+
+			for ( let i = 0; i < templates.length; i++ )
+				cleanTemplate.call(this, templates[i])
 		
-			this.templatesObject = result;
+			this.templatesObject = result
 		}
 
 		return this.templatesObject;
@@ -94,8 +96,7 @@ class Component {
 			this.elementsInRoot = this.element.querySelectorAll('[ref], [root]')
 			this.elementsObject = {}
 
-			Array.from(this.elementsInRoot).forEach( v => {
-
+			const addElementToRoot = (v) => {
 				// Check if it's an element of other components
 				if ( this._isNested(v) ) return;
 
@@ -111,7 +112,10 @@ class Component {
 						this.elementsObject[key].push(v);
 					}
 				}
-			});
+			}
+
+			for ( let i = 0; i < this.elementsInRoot.length; i++ )
+				addElementToRoot.call(this, this.elementsInRoot[i] )
 		}
 		
 		return this.elementsObject;
@@ -135,9 +139,11 @@ class Component {
 	}
 
 	_addBindings() {
-		function bindSelector(ev) {
-			Array.from(this.element.querySelectorAll(`[${ev}]`)).forEach( v => {
+		const bindings = ['onclick', 'onchange', 'oninput', 'onmouseenter', 'onmouseleave', 'onscroll']
 
+		function bindSelector(ev) {
+
+			const addBinding = (v) => {
 				// Check if it's an element of other components
 				if ( this._isNested(v) ) return;
 
@@ -150,10 +156,15 @@ class Component {
 					console.warn(`'${funcname}' ${ev} function not defined for`, v)
 				}
 				v.removeAttribute(ev)
-			})
+			}
+
+			const elements = this.element.querySelectorAll(`[${ev}]`)
+			for ( let i = 0; i < elements.length ; i++ )
+				addBinding(elements[i])
 		}
-		const bindings = ['onclick', 'onchange', 'oninput', 'onmouseenter', 'onmouseleave']
-		bindings.forEach( bindSelector.bind(this) )
+
+		for ( let j = 0; j < bindings.length; j++ )
+			bindSelector.call(this, bindings[j])
 	}
 
 	el(selector, update) {
@@ -170,12 +181,12 @@ class Component {
 	
 	update() {
 		this.needsUpdate = true;
-		this._addOptions();
-		this._addBindings();
-		this._rootEl();
-		this._getTemplates();
-		this.needsUpdate = false;		
-		return true;
+		this._addOptions()
+		this._addBindings()
+		this._rootEl()
+		this._getTemplates()
+		this.needsUpdate = false
+		return true
 	}
 }
 
@@ -189,22 +200,26 @@ function clone (obj) {
 
 function extend(ChildClass, ParentClass, dependency, proto, options, selector ) {
 	ChildClass.prototype = new ParentClass(dependency, options, selector);
-	Object.assign( ChildClass.prototype, proto );
-	ChildClass.prototype.constructor = ChildClass;
+	Object.assign( ChildClass.prototype, proto )
+	ChildClass.prototype.constructor = ChildClass
 }
 
 function checkReservedProperties(object, selector) {
 	const reserved = [ "update", "container", "root", "el", "new", "template", "mount", "options" ]
-	reserved.forEach( key => {
+
+	const checkReserved = (key) => {
 		if ( object.hasOwnProperty(key) ) {
 			throw new Error(`${LibraryName}.${selector} -> '${key}' property is reserved`)
 		}	
-	})
+	}
+
+	for ( let i = 0; i < reserved.length; i++ )
+		checkReserved(reserved[i])
 }
 
 export default function Mount ( selector, Tag, options = {} ) {
 
-	const element = document.querySelectorAll(`[${LibraryName}="${selector}"`);
+	const element = document.querySelectorAll(`[${LibraryName}="${selector}"`)
 
 	if ( element ) {
 		const result = []
@@ -215,15 +230,15 @@ export default function Mount ( selector, Tag, options = {} ) {
 		for ( let i = 0; i < element.length ; i++ ) {
 			extend( Tag, Component, element[i], old, options, selector )
 			const instance = new Tag(options)
-			instance.update();
-			result.push(instance);
-			Tag.prototype = old;
+			instance.update()
+			result.push(instance)
+			Tag.prototype = old
 		}
 
-		return result.length > 1 ? result : result[0] || null ;
+		return result.length > 1 ? result : result[0] || null
 
 	} else {
 		console.warn("Elements with specified selector: ${selector} not found")
-		return null;
+		return null
 	}
 }
