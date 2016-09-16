@@ -21,7 +21,7 @@ class Component {
 
 	mount() {
 		const newinstance = Mount(...arguments)
-			  newinstance.parent = this
+			  newinstance._parent = this
 		return newinstance;
 	}
 
