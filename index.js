@@ -20,7 +20,13 @@ class Component {
 	}
 
 	mount() {
-		return Mount(...arguments)
+		const newinstance = Mount(...arguments)
+			  newinstance.parent = this
+		return newinstance;
+	}
+
+	get parent() {
+		return this._parent || null
 	}
 
 	get container() {
@@ -217,7 +223,7 @@ function checkReservedProperties(object, selector) {
 		checkReserved(reserved[i])
 }
 
-export default function Mount ( selector, Tag, options = {} ) {
+export default function Mount( selector, Tag, options = {} ) {
 
 	const element = document.querySelectorAll(`[${LibraryName}="${selector}"`)
 

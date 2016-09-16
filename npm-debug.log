@@ -1,0 +1,106 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@3.8.6
+3 info using node@v6.1.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/Seth/Sites/repositories/pulsejs',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/Seth/.npm/pulsejs/0.0.39/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/Seth/.npm correctMkdir not in flight; initializing
+10 info lifecycle pulsejs@0.0.39~prepublish: pulsejs@0.0.39
+11 silly lifecycle pulsejs@0.0.39~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/Seth/.npm/pulsejs/0.0.39/package.tgz',
+12 verbose tar pack   '/Users/Seth/Sites/repositories/pulsejs' ]
+13 verbose tarball /Users/Seth/.npm/pulsejs/0.0.39/package.tgz
+14 verbose folder /Users/Seth/Sites/repositories/pulsejs
+15 verbose addLocalTarball adding from inside cache /Users/Seth/.npm/pulsejs/0.0.39/package.tgz
+16 verbose correctMkdir /Users/Seth/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd pulsejs@0.0.39
+18 verbose afterAdd /Users/Seth/.npm/pulsejs/0.0.39/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/Seth/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/Seth/.npm/pulsejs/0.0.39/package/package.json written
+21 silly publish { name: 'pulsejs',
+21 silly publish   version: '0.0.39',
+21 silly publish   description: 'pulsejs',
+21 silly publish   main: 'index.js',
+21 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+21 silly publish   repository:
+21 silly publish    { type: 'git',
+21 silly publish      url: 'git+https://github.com/giuseppesalvo/pulsejs.git' },
+21 silly publish   keywords: [ 'pulsejs' ],
+21 silly publish   browserify: { transform: [ 'babelify' ] },
+21 silly publish   author: '',
+21 silly publish   license: 'ISC',
+21 silly publish   bugs: { url: 'https://github.com/giuseppesalvo/pulsejs/issues' },
+21 silly publish   homepage: 'https://github.com/giuseppesalvo/pulsejs#readme',
+21 silly publish   dependencies: { 'babel-preset-es2015': '^6.9.0', babelify: '^7.3.0' },
+21 silly publish   gitHead: '5fba40ae407a9d836d26e7b91dcdc6b235aa1231',
+21 silly publish   readme: 'ERROR: No README data found!',
+21 silly publish   _id: 'pulsejs@0.0.39',
+21 silly publish   _shasum: '40a8d60e9f6da80d2851bafb6ebb6fa47fd86c05',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name pulsejs
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'pulsejs',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   name: 'pulsejs',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/pulsejs
+28 verbose publish registryBase https://registry.npmjs.org/
+29 silly publish uploading /Users/Seth/.npm/pulsejs/0.0.39/package.tgz
+30 verbose request uri https://registry.npmjs.org/pulsejs
+31 verbose request sending authorization for write operation
+32 info attempt registry request try #1 at 2:07:57 PM
+33 verbose request using bearer token for auth
+34 verbose request id 8034864b4a2ea962
+35 http request PUT https://registry.npmjs.org/pulsejs
+36 http 403 https://registry.npmjs.org/pulsejs
+37 verbose headers { 'content-type': 'application/json',
+37 verbose headers   'cache-control': 'max-age=300',
+37 verbose headers   'content-length': '96',
+37 verbose headers   'accept-ranges': 'bytes',
+37 verbose headers   date: 'Mon, 12 Sep 2016 12:07:59 GMT',
+37 verbose headers   via: '1.1 varnish',
+37 verbose headers   connection: 'keep-alive',
+37 verbose headers   'x-served-by': 'cache-fra1236-FRA',
+37 verbose headers   'x-cache': 'MISS',
+37 verbose headers   'x-cache-hits': '0',
+37 verbose headers   'x-timer': 'S1473682077.956149,VS0,VE1303',
+37 verbose headers   vary: 'Accept-Encoding' }
+38 verbose request invalidating /Users/Seth/.npm/registry.npmjs.org/pulsejs on PUT
+39 error publish Failed PUT 403
+40 verbose stack Error: "You cannot publish over the previously published version 0.0.39." : pulsejs
+40 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+40 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+40 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+40 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:199:22)
+40 verbose stack     at emitTwo (events.js:106:13)
+40 verbose stack     at Request.emit (events.js:191:7)
+40 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1036:10)
+40 verbose stack     at emitOne (events.js:101:20)
+40 verbose stack     at Request.emit (events.js:188:7)
+40 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:963:12)
+41 verbose statusCode 403
+42 verbose pkgid pulsejs
+43 verbose cwd /Users/Seth/Sites/repositories/pulsejs
+44 error Darwin 15.6.0
+45 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+46 error node v6.1.0
+47 error npm  v3.8.6
+48 error code E403
+49 error "You cannot publish over the previously published version 0.0.39." : pulsejs
+50 error If you need help, you may report this error at:
+50 error     <https://github.com/npm/npm/issues>
+51 verbose exit [ 1, true ]
