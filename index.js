@@ -225,7 +225,8 @@ function checkReservedProperties(object, selector) {
 
 export default function Mount( selector, Tag, options = {} ) {
 
-	const element = document.querySelectorAll(`[${LibraryName}="${selector}"`)
+	const pattern = `[${LibraryName}='${selector}']`
+		, element = document.querySelectorAll(pattern)
 
 	if ( element ) {
 		const result = []
