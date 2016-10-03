@@ -20,7 +20,7 @@ class Component {
 	}
 
 	mount(selector, Tag, options = {}) {
-		Tag._parent = this
+		Tag.prototype._parent = this
 		const newinstance = Mount(selector, Tag, options)
 		return newinstance || null;
 	}
