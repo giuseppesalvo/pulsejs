@@ -21,8 +21,12 @@ class Component {
 
 	mount() {
 		const newinstance = Mount(...arguments)
-			  newinstance._parent = this
-		return newinstance;
+		if ( newinstance ) {
+			newinstance._parent = this
+			return newinstance;
+		} else {
+			return null;
+		}
 	}
 
 	get parent() {
