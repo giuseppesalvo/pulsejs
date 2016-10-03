@@ -19,14 +19,14 @@ class Component {
 		return this._options
 	}
 
-	mount() {
-		const newinstance = Mount(...arguments)
-		if ( newinstance ) {
-			newinstance._parent = this
-			return newinstance;
-		} else {
-			return null;
-		}
+	mount(selector, Tag, options = {}) {
+		Tag._parent = this
+		const newinstance = Mount(selector, Tag, options)
+		return newinstance || null;
+	}
+
+	destroy() {
+		this.container.parentNode.removeChild(this.container)
 	}
 
 	get parent() {
