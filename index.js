@@ -227,9 +227,9 @@ function checkReservedProperties(object, selector) {
 		checkReserved(reserved[i])
 }
 
-export default function Mount( selector, Tag, options = {}, container ) {
+export default function Mount( selector, Tag, options = {}, parent ) {
 
-	const container = container instanceof HTMLElement ? container : document
+	const container = parent instanceof HTMLElement ? parent : document
 
 	const pattern = `[${LibraryName}='${selector}']`
 		, element = container.querySelectorAll(pattern)
