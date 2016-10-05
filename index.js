@@ -21,7 +21,7 @@ class Component {
 
 	mount(selector, Tag, options = {}) {
 		Tag.prototype._parent = this
-		const newinstance = Mount(selector, Tag, options)
+		const newinstance = Mount(selector, Tag, options, this.element)
 		return newinstance || null;
 	}
 
@@ -227,10 +227,12 @@ function checkReservedProperties(object, selector) {
 		checkReserved(reserved[i])
 }
 
-export default function Mount( selector, Tag, options = {} ) {
+export default function Mount( selector, Tag, options = {}, container ) {
+
+	const container = container instanceof HTMLElement ? container : document
 
 	const pattern = `[${LibraryName}='${selector}']`
-		, element = document.querySelectorAll(pattern)
+		, element = container.querySelectorAll(pattern)
 
 	if ( element ) {
 		const result = []
