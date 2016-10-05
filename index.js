@@ -113,8 +113,8 @@ class Component {
 				const key = v.getAttribute('ref') || v.getAttribute('root');
 
 				if ( !this.elementsObject[key] ) {
-					this.elementsObject[key] = v 
-				} else {
+					this.elementsObject[key] = v
+				} else {
 					if ( this.elementsObject[key].length && this.elementsObject[key].length >= 1 ) {
 						this.elementsObject[key].push(v)
 					} else {
