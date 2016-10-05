@@ -144,7 +144,7 @@ class Component {
 		return true;
 	}
 
-	new(el) {
+	new(el) {
 		return document.createElement(el)
 	}
 

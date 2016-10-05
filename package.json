@@ -1,6 +1,6 @@
 {
   "name": "pulsejs",
-  "version": "0.0.47",
+  "version": "0.0.49",
   "description": "pulsejs",
   "main": "index.js",
   "scripts": {
