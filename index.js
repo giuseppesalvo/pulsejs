@@ -149,7 +149,7 @@ class Component {
 	}
 
 	_addBindings() {
-		const bindings = ['onclick', 'onchange', 'oninput', 'onmouseenter', 'onmouseleave', 'onscroll']
+		const bindings = ['onclick', 'onchange', 'oninput', 'onmouseenter', 'onmouseleave', 'onscroll', 'onblur', 'onfocus', 'onkeyup', 'onkeydown', 'onmousedown', 'onmouseup', 'ontouchstart', 'ontouchend', 'ontouchdrag']
 
 		function bindSelector(ev) {
 
