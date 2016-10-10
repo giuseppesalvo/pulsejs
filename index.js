@@ -1,5 +1,7 @@
 'use strict';
 
+import u from './utils'
+
 const LibraryName = "pulse"
 
 class Component {
@@ -149,7 +151,7 @@ class Component {
 	}
 
 	_addBindings() {
-		const bindings = ['onclick', 'onchange', 'oninput', 'onmouseenter', 'onmouseleave', 'onscroll', 'onblur', 'onfocus', 'onkeyup', 'onkeydown', 'onmousedown', 'onmouseup', 'ontouchstart', 'ontouchend', 'ontouchdrag']
+		const bindings = ['onclick', 'onchange', 'oninput', 'onmouseenter', 'onmouseleave', 'onscroll', 'onblur', 'onfocus', 'onkeyup', 'onkeydown', 'onmousedown', 'onmouseup', 'ontouchstart', 'ontouchend', 'ontouchdrag', 'onvclick']
 
 		function bindSelector(ev) {
 
@@ -161,6 +163,9 @@ class Component {
 					, func 	   = this[funcname]
 
 				if ( typeof func === "function" ) {
+					if ( ev === "onvclick" ) { // Responsive Click
+						ev = u.is_touch() ? 'ontouchstart' : 'onclick'
+					}
 					v.addEventListener(ev.replace(/^on/, ''), (e) => func.call(this, e, v) )
 				} else {
 					console.warn(`'${funcname}' ${ev} function not defined for`, v)
