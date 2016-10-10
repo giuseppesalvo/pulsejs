@@ -163,10 +163,12 @@ class Component {
 					, func 	   = this[funcname]
 
 				if ( typeof func === "function" ) {
-					if ( ev === "onvclick" ) { // Responsive Click
-						ev = u.is_touch() ? 'ontouchstart' : 'onclick'
-					}
-					v.addEventListener(ev.replace(/^on/, ''), (e) => func.call(this, e, v) )
+					let c_ev = null
+					if ( ev === "onvclick" ) // Responsive Click
+						c_ev = u.is_touch() ? 'ontouchstart' : 'onclick'
+					else
+						c_ev = ev
+					v.addEventListener(c_ev.replace(/^on/, ''), (e) => func.call(this, e, v) )
 				} else {
 					console.warn(`'${funcname}' ${ev} function not defined for`, v)
 				}
