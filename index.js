@@ -21,6 +21,39 @@ class Component {
 		return this._options
 	}
 
+	_setAllStates() {
+		if ( !this.state ) this.state = {}
+
+		for ( let k in this.state ) {
+			this.setState(k, this.state[k])
+		}
+	}
+
+	setState(name, value) {
+
+		if ( !this.state ) this.state = {}
+
+		this.state[name] = value
+
+		const els = this.container.querySelectorAll(`[state|="${name}|"], [state="${name}"]`)
+
+		for ( let i = 0; i < els.length ; i++ ) {
+			let el = els[i]
+
+			let state = el.getAttribute('state')
+
+			if ( state.indexOf('|') >= 0 ) {
+				let attribute = state.split("|").pop()
+				if ( attribute in el )
+					el[attribute] = this.state[name]
+				else
+					el.setAttibute(attribute, this.state[name])
+			} else {
+				el.innetHTML = this.state[name]
+			}
+		}
+	}
+
 	mount(selector, Tag, options = {}) {
 		Tag.prototype._parent = this
 		const newinstance = Mount(selector, Tag, options, this.element)
@@ -202,6 +235,7 @@ class Component {
 		this._addBindings()
 		this._rootEl()
 		this._getTemplates()
+		this._setAllStates()
 		this.needsUpdate = false
 		return true
 	}
