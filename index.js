@@ -47,7 +47,7 @@ class Component {
 		if ( !this.state ) this.state = {}
 
 		for ( let k in obj ) {
-			this.setState(k, obj[k])
+			this._setSingleState(k, obj[k])
 		}
 	}
 
