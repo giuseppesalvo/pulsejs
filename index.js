@@ -21,18 +21,7 @@ class Component {
 		return this._options
 	}
 
-	_setAllStates() {
-		if ( !this.state ) this.state = {}
-
-		for ( let k in this.state ) {
-			this.setState(k, this.state[k])
-		}
-	}
-
-	setState(name, value) {
-
-		if ( !this.state ) this.state = {}
-
+	_setSingleState(name, value) {
 		this.state[name] = value
 
 		const els = this.container.querySelectorAll(`[state^="${name}|"], [state="${name}"]`)
@@ -51,6 +40,14 @@ class Component {
 			} else {
 				el.innerHTML = this.state[name]
 			}
+		}
+	}
+
+	setState(obj) {
+		if ( !this.state ) this.state = {}
+
+		for ( let k in obj ) {
+			this.setState(k, obj[k])
 		}
 	}
 
@@ -235,7 +232,7 @@ class Component {
 		this._addBindings()
 		this._rootEl()
 		this._getTemplates()
-		this._setAllStates()
+		this.setState(this.state)
 		this.needsUpdate = false
 		return true
 	}
