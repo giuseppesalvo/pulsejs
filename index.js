@@ -35,7 +35,7 @@ class Component {
 
 		this.state[name] = value
 
-		const els = this.container.querySelectorAll(`[state|="${name}|"], [state="${name}"]`)
+		const els = this.container.querySelectorAll(`[state^="${name}|"], [state="${name}"]`)
 
 		for ( let i = 0; i < els.length ; i++ ) {
 			let el = els[i]
@@ -47,9 +47,9 @@ class Component {
 				if ( attribute in el )
 					el[attribute] = this.state[name]
 				else
-					el.setAttibute(attribute, this.state[name])
+					el.setAttribute(attribute, this.state[name])
 			} else {
-				el.innetHTML = this.state[name]
+				el.innerHTML = this.state[name]
 			}
 		}
 	}
