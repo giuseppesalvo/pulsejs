@@ -189,7 +189,7 @@ class Component {
 				// Check if it's an element of other components
 				if ( this._isNested(v) ) return;
 
-				const funcname = v.getAttribute(ev)
+				const funcname = v.getAttribute("_" + ev) || v.getAttribute(ev)
 					, func 	   = this[funcname]
 
 				if ( typeof func === "function" ) {
