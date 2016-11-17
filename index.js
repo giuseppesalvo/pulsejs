@@ -202,10 +202,11 @@ class Component {
 				} else {
 					console.warn(`'${funcname}' ${ev} function not defined for`, v)
 				}
+				v.removeAttribute("_" + ev)
 				v.removeAttribute(ev)
 			}
 
-			const elements = this.element.querySelectorAll(`[${ev}]`)
+			const elements = this.element.querySelectorAll(`[${ev}], [_${ev}]`)
 			for ( let i = 0; i < elements.length ; i++ )
 				addBinding(elements[i])
 		}
